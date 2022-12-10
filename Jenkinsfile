@@ -2,9 +2,10 @@ pipeline{
     agent any
 
     stages {
+
         stage('Checkout Source') {
             steps {
-                git url:'https://github.com/viniciusmaltaaraujo/pedelogo-catalogo.git', branch 'main'
+                git url: 'https://github.com/viniciusmaltaaraujo/pedelogo-catalogo.git', branch: 'main'
             }
         }
 
