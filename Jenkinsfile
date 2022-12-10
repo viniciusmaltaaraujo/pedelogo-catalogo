@@ -12,7 +12,7 @@ pipeline{
         stage('Build Image') {
             steps {
                 script {
-                    dockerapp = docker.build("viniciusmaltaaraujo/api-produto:${env.BUILD_ID}" , '-f ./src/PedeLogo.Catalogo.Api/DockerFile . ')
+                    dockerapp = docker.build("viniciusmaltaaraujo/api-produto:${env.BUILD_ID}" , '-f ./src/PedeLogo.Catalogo.Api/Dockerfile . ')
                 }
             }
         }
@@ -20,9 +20,11 @@ pipeline{
         stage('Push Image'){
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub')
-                    dockerapp.push('latest')
-                    dockerapp.push("${env.BUILD_ID}")
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                        dockerapp.push('latest')
+                        dockerapp.push("${env.BUILD_ID}")
+                    }
+                    
                     
                 }
             }
